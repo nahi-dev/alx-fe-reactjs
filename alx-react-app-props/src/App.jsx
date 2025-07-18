@@ -1,5 +1,5 @@
 import ProfilePage from "./components/ProfilePage";
-import UserContext from "./UserContext";
+import UserContext from "./components/UserContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MainContent from "./components/MainContent";
