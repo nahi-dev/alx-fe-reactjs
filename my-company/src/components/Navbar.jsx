@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
-
 function Navbar() {
   return (
-    <nav style={{ padding: "10px", backgroundColor: "#eee" }}>
+    <nav
+      style={{
+        padding: "10px",
+        backgroundColor: "#eee",
+        display: "flex", // added for flex layout
+        justifyContent: "space-around", // or "space-between", whichever you prefer
+        alignItems: "center", // optional, for vertical centering
+      }}
+    >
       <Link to="/" style={{ marginRight: "10px" }}>
         Home
       </Link>
@@ -16,5 +23,3 @@ function Navbar() {
     </nav>
   );
 }
-
-export default Navbar;
