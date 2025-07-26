@@ -1,27 +1,21 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RecipeDetails from "./components/RecipeDetails";
-import RecipeList from "./components/RecipeList";
 import AddRecipeForm from "./components/AddRecipeForm";
-
 import SearchBar from "./components/SearchBar";
+import RecipeList from "./components/RecipeList";
+import FavoritesList from "./components/FavoritesList";
+import RecommendationsList from "./components/RecommendationsList";
+
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <AddRecipeForm />
-              <SearchBar />
-              <RecipeList />
-            </>
-          }
-        />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
-      </Routes>
-    </BrowserRouter>
+    <div style={{ maxWidth: 700, margin: "2rem auto", padding: "1rem" }}>
+      <AddRecipeForm />
+      <SearchBar />
+      <RecipeList />
+
+      <hr />
+
+      <FavoritesList />
+      <RecommendationsList />
+    </div>
   );
 }
 
