@@ -1,4 +1,7 @@
 import React from "react";
+import FavoritesList from "./components/FavoritesList";
+import RecommendationsList from "./components/RecommendationsList";
+
 import {
   BrowserRouter as Router,
   Routes,
