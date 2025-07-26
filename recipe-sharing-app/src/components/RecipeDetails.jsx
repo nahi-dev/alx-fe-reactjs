@@ -13,8 +13,8 @@ const RecipeDetails = ({ recipeId }) => {
   return (
     <div>
       <h1>{recipe.title}</h1>
+      <p>ID: {recipe.id}</p> {/* <-- explicitly referencing recipe.id */}
       <p>{recipe.description}</p>
-
       <EditRecipeForm recipe={recipe} />
       <DeleteRecipeButton recipeId={recipeId} />
     </div>
