@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecipeStore } from "./recipeStore";
+import { Link } from "react-router-dom"; // <-- added import
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
@@ -16,7 +17,13 @@ const RecipeList = () => {
             padding: "10px",
           }}
         >
-          <h3>{recipe.title}</h3>
+          <h3>
+            <Link to={`/recipes/${recipe.id}`}>
+              {" "}
+              {/* <-- added Link */}
+              {recipe.title}
+            </Link>
+          </h3>
           <p>{recipe.description}</p>
         </div>
       ))}
@@ -24,7 +31,7 @@ const RecipeList = () => {
   );
 };
 
-// New filtered list component
+// Also add Link import here if you export FilteredRecipeList from same file:
 export const FilteredRecipeList = () => {
   const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
 
@@ -40,7 +47,13 @@ export const FilteredRecipeList = () => {
             padding: "10px",
           }}
         >
-          <h3>{recipe.title}</h3>
+          <h3>
+            <Link to={`/recipes/${recipe.id}`}>
+              {" "}
+              {/* <-- added Link */}
+              {recipe.title}
+            </Link>
+          </h3>
           <p>{recipe.description}</p>
         </div>
       ))}
