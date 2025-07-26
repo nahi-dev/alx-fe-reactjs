@@ -11,7 +11,7 @@ function App() {
       <UserProfile name="John Doe" age={30} bio="Loves exploring new cities." />
       <Footer />
       <div>
-        <h1 style={{ textAlign: "center" }}>Simple Counter App</h1>
+        <h1 style={{ textAlign: "center" }}>Simple Counter App</h1> 
         <Counter />
       </div>
     </>

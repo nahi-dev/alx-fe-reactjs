@@ -3,7 +3,7 @@ import AddRecipeForm from "./components/AddRecipeForm";
 
 function App() {
   return (
-    <div style={{ padding: "1rem" }}>
+    <div>
       <AddRecipeForm />
       <RecipeList />
     </div>
