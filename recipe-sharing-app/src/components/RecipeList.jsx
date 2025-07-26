@@ -1,32 +1,27 @@
-import { create } from "zustand";
-const useRecipeStore = create((set, get) => ({
-  recipes: [],
-  filteredRecipes: [],
-  searchTerm: "",
+import React from "react";
+import { useRecipeStore } from "./recipeStore";
 
-  setRecipes: (recipes) =>
-    set({
-      recipes,
-      filteredRecipes: recipes,
-    }),
+const RecipeList = () => {
+  const recipes = useRecipeStore((state) => state.recipes);
 
-  addRecipe: (newRecipe) => {
-    set((state) => {
-      const updatedRecipes = [...state.recipes, newRecipe];
-      const filteredRecipes = updatedRecipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      );
-      return { recipes: updatedRecipes, filteredRecipes };
-    });
-  },
+  return (
+    <div>
+      {recipes.length === 0 && <p>No recipes yet. Add one!</p>}
+      {recipes.map((recipe) => (
+        <div
+          key={recipe.id}
+          style={{
+            border: "1px solid #ccc",
+            marginBottom: "10px",
+            padding: "10px",
+          }}
+        >
+          <h3>{recipe.title}</h3>
+          <p>{recipe.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-  setSearchTerm: (term) => {
-    set((state) => {
-      const filteredRecipes = state.recipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(term.toLowerCase())
-      );
-      return { searchTerm: term, filteredRecipes };
-    });
-  },
-}));
-export default useRecipeStore;
+export default RecipeList;
