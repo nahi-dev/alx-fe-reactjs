@@ -1,53 +1,27 @@
+// recipeStore.js
+import { use } from "react";
 import { create } from "zustand";
 
-export const useRecipeStore = create((set, get) => ({
-  recipes: [],
+const useRecipeStore = create((set, get) => ({
   favorites: [],
   recommendations: [],
 
-  addRecipe: (newRecipe) =>
-    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
-
-  deleteRecipe: (id) =>
+  addFavorite: (recipe) =>
     set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
-      favorites: state.favorites.filter((favId) => favId !== id),
+      favorites: [...state.favorites, recipe],
     })),
-
-  updateRecipe: (updatedRecipe) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-      ),
-    })),
-
-  addFavorite: (recipeId) => {
-    const { favorites } = get();
-    if (!favorites.includes(recipeId)) {
-      set({ favorites: [...favorites, recipeId] });
-    }
-  },
-
-  removeFavorite: (recipeId) => {
-    set((state) => ({
-      favorites: state.favorites.filter((id) => id !== recipeId),
-    }));
-  },
 
   generateRecommendations: () => {
-    const { favorites, recipes } = get();
-    // Simple mock: recommend recipes NOT in favorites, randomly selected
-    const recommended = recipes
-      .filter((r) => !favorites.includes(r.id))
-      .filter(() => Math.random() > 0.5);
-    set({ recommendations: recommended });
-  },
+    const favorites = get().favorites;
 
-  // Getter for favorite recipe objects
-  get favoriteRecipes() {
-    const { favorites, recipes } = get();
-    return favorites
-      .map((id) => recipes.find((recipe) => recipe.id === id))
-      .filter(Boolean);
+    // This is where you implement your recommendation logic
+    const newRecommendations = favorites.map((fav, index) => ({
+      id: index + 100,
+      title: `Recommended: ${fav.title}`,
+      description: `Because you liked ${fav.title}`,
+    }));
+
+    set({ recommendations: newRecommendations });
   },
 }));
+export default useRecipeStore;

@@ -1,23 +1,32 @@
-import { Link } from "react-router-dom";
-import { useRecipeStore } from "./recipeStore";
+import { create } from "zustand";
+const useRecipeStore = create((set, get) => ({
+  recipes: [],
+  filteredRecipes: [],
+  searchTerm: "",
 
-const RecipeList = () => {
-  // Access the getter filteredRecipes
-  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
+  setRecipes: (recipes) =>
+    set({
+      recipes,
+      filteredRecipes: recipes,
+    }),
 
-  return (
-    <div>
-      <h2>Recipes</h2>
-      {filteredRecipes.length === 0 && <p>No recipes found.</p>}
-      {filteredRecipes.map((recipe) => (
-        <div key={recipe.id}>
-          <Link to={`/recipes/${recipe.id}`}>
-            <h3>{recipe.title}</h3>
-          </Link>
-        </div>
-      ))}
-    </div>
-  );
-};
+  addRecipe: (newRecipe) => {
+    set((state) => {
+      const updatedRecipes = [...state.recipes, newRecipe];
+      const filteredRecipes = updatedRecipes.filter((recipe) =>
+        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      );
+      return { recipes: updatedRecipes, filteredRecipes };
+    });
+  },
 
-export default RecipeList;
+  setSearchTerm: (term) => {
+    set((state) => {
+      const filteredRecipes = state.recipes.filter((recipe) =>
+        recipe.title.toLowerCase().includes(term.toLowerCase())
+      );
+      return { searchTerm: term, filteredRecipes };
+    });
+  },
+}));
+export default useRecipeStore;
