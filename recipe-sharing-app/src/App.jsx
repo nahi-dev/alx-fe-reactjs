@@ -1,30 +1,42 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+import { useRecipeStore } from "./components/recipeStore";
+
 import RecipeList from "./components/RecipeList";
 import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeDetails from "./components/RecipeDetails";
 
 function App() {
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        margin: "40px auto",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h1>Recipe Sharing App</h1>
-      <AddRecipeForm />
+    <Router>
+      {" "}
+      {/* <-- Add Router here */}
+      <div
+        style={{
+          maxWidth: "600px",
+          margin: "40px auto",
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
+        <h1>Recipe Sharing App</h1>
+        <AddRecipeForm />
 
-      <nav style={{ marginBottom: "20px" }}>
-        <Link to="/">Home</Link>
-      </nav>
+        <nav style={{ marginBottom: "20px" }}>
+          <Link to="/">Home</Link>
+        </nav>
 
-      <Routes>
-        <Route path="/" element={<RecipeListWithLinks />} />
-        <Route path="/recipes/:id" element={<RecipeDetailsWrapper />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<RecipeListWithLinks />} />
+          <Route path="/recipes/:id" element={<RecipeDetailsWrapper />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
@@ -52,10 +64,6 @@ const RecipeListWithLinks = () => {
     </div>
   );
 };
-
-// Wrapper to get the recipeId from route params
-import { useParams } from "react-router-dom";
-import { useRecipeStore } from "./components/recipeStore";
 
 const RecipeDetailsWrapper = () => {
   const { id } = useParams();
