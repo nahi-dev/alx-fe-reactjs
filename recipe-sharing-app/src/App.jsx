@@ -8,15 +8,14 @@ import {
 } from "react-router-dom";
 import { useRecipeStore } from "./components/recipeStore";
 
-import RecipeList from "./components/RecipeList";
+import RecipeList, { FilteredRecipeList } from "./components/RecipeList";
 import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeDetails from "./components/RecipeDetails";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
     <Router>
-      {" "}
-      {/* <-- Add Router here */}
       <div
         style={{
           maxWidth: "600px",
@@ -26,13 +25,13 @@ function App() {
       >
         <h1>Recipe Sharing App</h1>
         <AddRecipeForm />
-
+        <SearchBar /> {/* Added search input */}
         <nav style={{ marginBottom: "20px" }}>
           <Link to="/">Home</Link>
         </nav>
-
         <Routes>
-          <Route path="/" element={<RecipeListWithLinks />} />
+          {/* Show filtered recipes on home */}
+          <Route path="/" element={<FilteredRecipeListWithLinks />} />
           <Route path="/recipes/:id" element={<RecipeDetailsWrapper />} />
         </Routes>
       </div>
@@ -40,13 +39,13 @@ function App() {
   );
 }
 
-const RecipeListWithLinks = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
+const FilteredRecipeListWithLinks = () => {
+  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
 
   return (
     <div>
-      {recipes.length === 0 && <p>No recipes yet. Add one!</p>}
-      {recipes.map((recipe) => (
+      {filteredRecipes.length === 0 && <p>No matching recipes found.</p>}
+      {filteredRecipes.map((recipe) => (
         <div
           key={recipe.id}
           style={{
