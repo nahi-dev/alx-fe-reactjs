@@ -1,12 +1,27 @@
-import axios from "axios";
+import React, { useState } from "react";
 
-export const fetchUserData = async (username) => {
-  try {
-    const response = await axios.get(
-      `https://api.github.com/users/${username}`
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+const Search = ({ onSearch }) => {
+  const [username, setUsername] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (username.trim() !== "") {
+      onSearch(username);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter GitHub username"
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+  );
 };
+
+export default Search;
