@@ -5,19 +5,19 @@ const Search = () => {
   const [username, setUsername] = useState("");
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setError(false);
     setUserData(null);
 
     try {
       const data = await fetchUserData(username);
       setUserData(data);
-    } catch {
-      setError("Looks like we can't find the user");
+    } catch (err) {
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -37,12 +37,15 @@ const Search = () => {
 
       {loading && <p>Loading...</p>}
 
-      {error && <p>{error}</p>}
+      {error && <p>Looks like we cant find the user</p>}
 
       {userData && (
         <div>
           <img src={userData.avatar_url} alt={userData.login} width="100" />
-          <p>{userData.login}</p>
+          <h2>{userData.login}</h2>
+          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+            Visit Profile
+          </a>
         </div>
       )}
     </div>
