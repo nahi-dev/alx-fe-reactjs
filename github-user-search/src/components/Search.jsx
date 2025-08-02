@@ -6,11 +6,6 @@ import {
 } from "../services/githubService";
 import "../index.css";
 
-import {
-  fetchUserData,
-  fetchUsersByAdvancedSearch,
-} from "../services/githubService";
-
 const Search = () => {
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
@@ -101,6 +96,11 @@ const Search = () => {
 
       {loading && <p>Loading...</p>}
       {error && <p>Looks like we can’t find users with these criteria.</p>}
+
+      {/* ✅ This part added to show message when no users are found */}
+      {!loading && !error && users.length === 0 && (
+        <p className="text-gray-600 mt-4">Looks like we can't find the user.</p>
+      )}
 
       <ul className="mt-4 space-y-4">
         {users.map((user) => (
