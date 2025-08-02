@@ -95,11 +95,11 @@ const Search = () => {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>Looks like we can’t find users with these criteria.</p>}
+      {error && <p>Looks like we cant find user</p>}
 
       {/* ✅ This part added to show message when no users are found */}
       {!loading && !error && users.length === 0 && (
-        <p className="text-gray-600 mt-4">Looks like we can't find the user.</p>
+        <p className="text-gray-600 mt-4">Looks like we cant find the user.</p>
       )}
 
       <ul className="mt-4 space-y-4">
