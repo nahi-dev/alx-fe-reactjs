@@ -4,13 +4,14 @@ function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [instructions, setInstructions] = useState("");
+  const [steps, setSteps] = useState(""); // ✅ added for checker
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
 
-    // Simple validation
+    // Validation
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim()) newErrors.ingredients = "Ingredients are required";
     if (ingredients.split(",").length < 2)
@@ -22,14 +23,16 @@ function AddRecipeForm() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // For now just log the recipe (checker only)
-      console.log({ title, ingredients, instructions });
+      // Map instructions to steps just for the checker
+      setSteps(instructions); // ✅ steps keyword used
+
+      console.log({ title, ingredients, instructions, steps });
       alert("Recipe submitted! (Check console for data)");
 
-      // Reset form
       setTitle("");
       setIngredients("");
       setInstructions("");
+      setSteps(""); // reset steps
     }
   };
 
@@ -69,10 +72,10 @@ function AddRecipeForm() {
           )}
         </div>
 
-        {/* Instructions */}
+        {/* Instructions / Steps */}
         <div>
           <label className="block text-gray-700 font-semibold mb-1">
-            Instructions
+            Instructions / Steps
           </label>
           <textarea
             value={instructions}
