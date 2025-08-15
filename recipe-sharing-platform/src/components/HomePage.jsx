@@ -19,7 +19,7 @@ function HomePage() {
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl hover:scale-105 transition-transform duration-200"
+            className="bg-white rounded-lg grid-cols-1 shadow-md overflow-hidden hover:shadow-xl hover:scale-105 transition-transform duration-200"
           >
             <img
               src={recipe.image}
