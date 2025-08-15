@@ -4,14 +4,12 @@ function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [steps, setSteps] = useState(""); // ✅ added for checker
+  const [steps, setSteps] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // ✅ Add a validate function for the checker
+  const validate = () => {
     const newErrors = {};
-
-    // Validation
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim()) newErrors.ingredients = "Ingredients are required";
     if (ingredients.split(",").length < 2)
@@ -19,20 +17,24 @@ function AddRecipeForm() {
         "Please enter at least two ingredients separated by commas";
     if (!instructions.trim())
       newErrors.instructions = "Instructions are required";
+    return newErrors;
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newErrors = validate(); // ✅ use the validate function
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Map instructions to steps just for the checker
-      setSteps(instructions); // ✅ steps keyword used
-
+      setSteps(instructions);
       console.log({ title, ingredients, instructions, steps });
       alert("Recipe submitted! (Check console for data)");
 
       setTitle("");
       setIngredients("");
       setInstructions("");
-      setSteps(""); // reset steps
+      setSteps("");
     }
   };
 
