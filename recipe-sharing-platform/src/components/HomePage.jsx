@@ -19,7 +19,14 @@ function HomePage() {
             <Link to={`/recipe/${recipe.id}`}>
               <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
             </Link>
+
             <p className="text-gray-600">{recipe.summary}</p>
+            <Link
+              to="/add-recipe"
+              className="inline-block mt-6 px-4 py-2 bg-green-500 text-white font-bold rounded hover:bg-green-600"
+            >
+              Add New Recipe
+            </Link>
           </div>
         </div>
       ))}
