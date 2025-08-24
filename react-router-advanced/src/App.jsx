@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import Post from "./components/Post";
 import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import BlogPost from "./components/BlogPost";
 
 function App() {
   return (
@@ -28,8 +29,9 @@ function App() {
           }
         />
 
-        {/* Dynamic Route */}
+        {/* Dynamic routes */}
         <Route path="/posts/:postId" element={<Post />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
     </Router>
   );
